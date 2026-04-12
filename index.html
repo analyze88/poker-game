@@ -200,40 +200,53 @@
     padding: 6px 12px;
   }
 
-  /* ▼ スマホ用の調整 ▼ */
-  @media (max-width: 600px) {
-    .rule-btn {
-      position: static;   /* 固定を解除 */
-      width: 100%;        /* 横幅いっぱい */
-      margin-bottom: 10px;
-      font-size: 18px;
-      padding: 12px 0;
-    }
+/* ▼ スマホ用の調整 ▼ */
+@media (max-width: 600px) {
+
+  /* ルールボタンを上部に移動 */
+  .rule-btn {
+    position: static;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 18px;
+    padding: 12px 0;
   }
 
-
-    .modal {
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
-      font-size: 16px;
-    }
-
-    body {
-      font-size: 18px;
-    }
-
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .card {
-      width: calc(100% / 7 - 6px);
-      font-size: 14px;
-    }
+  /* 全体の文字を大きく */
+  body {
+    font-size: 18px;
   }
+
+  /* モーダルをスマホ向けに */
+  .modal {
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    font-size: 16px;
+  }
+
+  /* カード表を折り返し */
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* カードを7枚で折り返す */
+  .card {
+    width: calc(100% / 7 - 6px);
+    font-size: 14px;
+  }
+
+  /* ボタンを押しやすく */
+  .btn {
+    width: 100%;
+    font-size: 18px;
+    padding: 12px 0;
+    margin-bottom: 10px;
+  }
+}
+
 
 
   </style>
