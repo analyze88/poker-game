@@ -10,12 +10,38 @@
       padding: 16px;
       background: #181a1f;
       color: #f5f5f5;
+      margin: 0;
     }
-    h1 { font-size: 22px; margin-bottom: 8px; }
-    h2 { font-size: 16px; margin: 8px 0; }
-    .area { margin-bottom: 16px; }
-    .row { margin-bottom: 4px; }
-    .label { display: inline-block; width: 32px; text-align: right; margin-right: 4px; color: #aaa; }
+
+    h1 {
+      font-size: 22px;
+      margin: 0 0 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2 {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+
+    .area {
+      margin-bottom: 16px;
+    }
+
+    .row {
+      margin-bottom: 4px;
+    }
+
+    .label {
+      display: inline-block;
+      width: 32px;
+      text-align: right;
+      margin-right: 4px;
+      color: #aaa;
+    }
 
     .cards-row {
       display: inline-flex;
@@ -29,7 +55,7 @@
       border-radius: 6px;
       border: 1px solid #555;
       display: flex;
-      flex-direction: column;   /* ★ これを追加 */
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 14px;
@@ -40,7 +66,9 @@
       user-select: none;
       transition: transform 0.05s ease, box-shadow 0.05s ease, border-color 0.05s ease;
     }
+
     .card.red { color: #ff7675; }
+
     .card.used {
       background: #3a3d45;
       color: #888;
@@ -49,11 +77,13 @@
       box-shadow: none;
       opacity: 0.6;
     }
+
     .card.selected {
       border-color: #00cec9;
       box-shadow: 0 0 6px rgba(0, 206, 201, 0.8);
       transform: translateY(-2px);
     }
+
     .card:not(.used):hover {
       border-color: #74b9ff;
       box-shadow: 0 0 4px rgba(116, 185, 255, 0.7);
@@ -69,16 +99,17 @@
 
     .btn {
       padding: 6px 12px;
-      margin-right: 8px;
       cursor: pointer;
       border-radius: 4px;
       border: 1px solid #555;
       background: #2d3436;
       color: #f5f5f5;
     }
+
     .btn:hover {
       background: #3b4246;
     }
+
     .btn:disabled {
       opacity: 0.5;
       cursor: default;
@@ -110,12 +141,12 @@
       font-size: 11px;
       margin-left: 4px;
     }
+
     .tag-op { background: #2d3436; color: #ffeaa7; border: 1px solid #636e72; }
     .tag-pl { background: #2d3436; color: #81ecec; border: 1px solid #00cec9; }
     .tag-danger { background: #2d3436; color: #ff7675; border: 1px solid #d63031; }
     .tag-ok { background: #2d3436; color: #55efc4; border: 1px solid #00b894; }
 
-    /* ▼ ここから追加（カード内の3段構造） ▼ */
     .rank-top {
       font-size: 10px;
       line-height: 10px;
@@ -132,20 +163,15 @@
       font-size: 12px;
       margin-top: 2px;
     }
-    /* ▲ ここまで追加 ▲ */
 
-    /* ▼ ここに今回のルールモーダル用CSSを追加する */
     .rule-btn {
-      position: fixed;
-      top: 10px;
-      right: 10px;
       font-size: 14px;
-      padding: 6px 12px;
+      padding: 4px 10px;
       background: #fff;
+      color: #000;
       border: 1px solid #333;
       border-radius: 4px;
       cursor: pointer;
-      z-index: 1000;
     }
 
     .rule-modal {
@@ -164,7 +190,7 @@
 
     .rule-content {
       background: white;
-      color: #000;   /* ← これを追加 */
+      color: #000;
       padding: 20px;
       width: 85%;
       max-width: 500px;
@@ -177,158 +203,154 @@
       margin-top: 20px;
       padding: 6px 12px;
     }
-    
-/* ▼ ラウンド色（5色） ▼ */
-.round-color-1 { color: #74b9ff; }
-.round-color-2 { color: #55efc4; }
-.round-color-3 { color: #ffeaa7; }
-.round-color-4 { color: #fab1a0; }
-.round-color-5 { color: #ff7675; }
 
-/* ▼ NEXT → のフェードアニメーション ▼ */
-.fade {
-  animation: fadeIn 0.4s ease;
-}
+    .round-color-1 { color: #74b9ff; }
+    .round-color-2 { color: #55efc4; }
+    .round-color-3 { color: #ffeaa7; }
+    .round-color-4 { color: #fab1a0; }
+    .round-color-5 { color: #ff7675; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-3px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+    .fade {
+      animation: fadeIn 0.4s ease;
+    }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-3px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-/* ▼ スマホ用の調整 ▼ */
-@media (max-width: 600px) {
+    /* ▼ スマホ用レイアウト最適化 ▼ */
+    @media (max-width: 600px) {
 
-  /* ルールボタンを上部に移動 */
-  .rule-btn {
-    position: static;
-    width: 100%;
-    margin-bottom: 10px;
-    font-size: 18px;
-    padding: 12px 0;
-  }
+      body {
+        font-size: 16px;
+        padding: 8px;
+      }
 
-  /* ボタンを横並びにして小さく */
-  .btn {
-    width: 32%;
-    margin-right: 2%;
-    padding: 8px 0;
-    font-size: 14px;
-    margin-bottom: 6px;
-  }
+      h1 {
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
 
-  .btn {
-    margin-bottom: 6px;
-  }
+      .area {
+        margin-bottom: 10px;
+      }
 
-  .area {
-    margin-bottom: 10px;
-  }
+      .hand .card {
+        width: 48px;
+        height: 68px;
+      }
 
-  /* 最後のボタンだけ右余白を消す */
-  .btn:last-child {
-    margin-right: 0;
-  }
+      /* あなたの手の3ボタン横並び用 */
+      .btn-bar {
+        display: flex;
+        gap: 4px;
+        margin: 4px 0;
+      }
 
-  /* 全体の文字を大きく */
-  body {
-    font-size: 18px;
-  }
+      .btn-bar .btn {
+        flex: 1;
+        padding: 6px 0;
+        font-size: 13px;
+        margin: 0;
+      }
 
-  /* モーダルをスマホ向けに */
-  .modal {
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-    font-size: 16px;
-  }
+      .cards-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+      }
 
-  /* カード表を折り返し（←ここ修正） */
-  .cards-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+      .cards-row .card {
+        width: 100%;
+        height: 56px;
+        font-size: 13px;
+      }
 
-  /* カードを7枚で折り返す */
-  .card {
-    width: calc(100% / 7 - 6px);
-    font-size: 14px;
-    padding: 4px;
-  }
+      .rule-btn {
+        font-size: 13px;
+        padding: 4px 8px;
+      }
 
-}
-
+      .log {
+        max-height: 140px;
+      }
+    }
   </style>
 </head>
-
 <body>
-  <h1>後出しポーカー <span class="tag tag-op"></span></h1>
 
+  <h1>
+    <span>後出しポーカー</span>
+    <button id="ruleBtn" class="rule-btn">ルール</button>
+  </h1>
+
+  <!-- 先攻の手 -->
   <div class="area">
-    <div class="status-line">
+    <h2>先攻の手 <span class="tag tag-op">点数縛りで自動生成</span></h2>
+    <div id="opponentHand" class="hand"></div>
+
+    <!-- ラウンド情報をここに集約 -->
+    <div class="status-line" style="margin-top:4px;">
       ラウンド <span id="round">1</span>
-      <span id="currentInfo" style="margin-left:12px;"></span>
-      <span id="nextInfo" style="margin-left:12px;"></span>
+      <span id="currentInfo" style="margin-left:8px;"></span>
+      <span id="nextInfo" style="margin-left:8px;"></span>
     </div>
+
+    <div id="opponentInfo" style="margin-top:4px;"></div>
+    <div id="opponentAllTotals"
+         style="margin-top:4px; font-size:12px; color:#ccc;"></div>
+  </div>
+
+  <!-- あなたの手 -->
+  <div class="area">
+    <h2>あなたの手 <span class="tag tag-pl">後出しで自由選択</span></h2>
+    <div id="playerHand" class="hand"></div>
+
+    <div class="btn-bar">
+      <button id="judgeBtn" class="btn">勝負</button>
+      <button id="clearBtn" class="btn">クリア</button>
+      <button id="retryBtn" class="btn">リトライ</button>
+    </div>
+
+    <div id="playerInfo" style="margin-top:2px;"></div>
     <div id="status" class="status-line" style="margin-top:4px;">
       ゲーム開始。先攻の手を見て、後出しで5枚選んでください。
     </div>
   </div>
 
-
-  <div class="area">
-    <h2>先攻の手 <span class="tag tag-op">点数縛りで自動生成</span></h2>
-
-    <div style="display:flex; align-items:flex-start; gap:12px;">
-      <div id="opponentHand" class="hand"></div>
-    </div>
-
-    <div id="opponentInfo"></div>
-
-    <!-- ★ flex の外に出す（これで絶対に表示される） -->
-    <div id="opponentAllTotals"
-         style="margin-top:4px; font-size:12px; color:#ccc;"></div>
-  </div>
-
-
-  <div class="area">
-    <h2>あなたの手 <span class="tag tag-pl">後出しで自由選択</span></h2>
-    <div id="playerHand" class="hand"></div>
-    <button id="judgeBtn" class="btn">この5枚で勝負する</button>
-    <button id="clearBtn" class="btn">選択をクリア</button>
-    <button id="retryBtn" class="btn">リトライ</button>
-
-    <div id="playerInfo"></div>
-  </div>
-
+  <!-- 残りカード -->
   <div class="area">
     <h2>残りカード <span class="tag">クリックで選択 / 使用済みは暗く表示</span></h2>
     <div id="deckArea"></div>
   </div>
 
+  <!-- ログ（折りたたみ） -->
   <div class="area">
-    <h2>ログ</h2>
+    <h2 style="cursor:pointer;" onclick="toggleLog()">ログ ▼</h2>
     <div id="log" class="log"></div>
   </div>
+
 <script>
 (() => {
+
+  /* ============================
+     基本データ
+  ============================ */
+
   const suits = ["♠", "♥", "♦", "♣"];
   const ranks = [1,2,3,4,5,6,7,8,9,10,11,12,13];
-const rankValue = {
-  1:14,   // A
-  13:13, 12:12, 11:11,
-  10:10, 9:9, 8:8, 7:7,
-  6:6, 5:5, 4:4, 3:3, 2:2
-};
 
-  // 点数計算用
-const rankPoint = {
-  1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7,
-  8:8, 9:9, 10:10, 11:11, 12:12, 13:13
-};
+  const rankValue = {
+    1:14, 13:13, 12:12, 11:11,
+    10:10, 9:9, 8:8, 7:7,
+    6:6, 5:5, 4:4, 3:3, 2:2
+  };
 
-
+  const rankPoint = {
+    1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7,
+    8:8, 9:9, 10:10, 11:11, 12:12, 13:13
+  };
 
   let deck = [];
   let round = 1;
@@ -348,86 +370,43 @@ const rankPoint = {
   const clearBtn = document.getElementById("clearBtn");
   const retryBtn = document.getElementById("retryBtn");
 
-retryBtn.onclick = () => {
-  // 全リセット
-  round = 1;
-  gameOver = false;
-  deck = [];
-  playerSelection = [];
-  opponentHand = [];
-
-  // ★ 色リセット（これが重要）
-  document.getElementById("currentInfo").className = "";
-  document.getElementById("nextInfo").className = "";
-
-  // 初期化
-  createDeck();
-  generateOpponentHand();
-  renderDeck();
-  renderPlayerHand();
-  renderAllOpponentTotals();
-  log("ゲーム開始。先攻の手を見て、後出しで5枚選んでください。");
-
-  judgeBtn.disabled = false;
-  clearBtn.disabled = false;
-
-  statusEl.textContent = "ゲーム再開。カードを5枚選んでください。";
-  log("=== リトライ ===");
-};
-
-
-
+  /* ============================
+     ログ
+  ============================ */
   function log(msg) {
     logEl.textContent = msg + "\n" + logEl.textContent;
   }
 
+  /* ============================
+     デッキ生成
+  ============================ */
   function createDeck() {
     deck = [];
     for (const s of suits) {
       for (const r of ranks) {
-deck.push({
-  suit: s,
-  rank: r,   // ← 数値
-  used: false,
-  id: s + r
-});
-
-
+        deck.push({
+          suit: s,
+          rank: r,
+          used: false,
+          id: s + r
+        });
       }
     }
   }
-  
-  function updateNextRoundInfo() {
-    const nextEl = document.getElementById("nextInfo");
 
-    nextEl.classList.remove("fade"); // 一度消す
-    void nextEl.offsetWidth;         // 再適用のためのハック
-    nextEl.classList.add("fade");
-
-    if (round >= 5) {
-      nextEl.textContent = "NEXT → クリア";
-      nextEl.className += " round-color-5";
-    } else {
-      nextEl.textContent = `NEXT → ${round + 1}R: ${roundTargets[round]}`;
-      nextEl.className += ` round-color-${round + 1}`;
-    }
-  }
-  
-  function updateCurrentRoundInfo(targetPoints, rankName) {
-    const cur = document.getElementById("currentInfo");
-
-    cur.className = "";
-    cur.classList.add(`round-color-${round}`);
-
-    cur.textContent = `合計点 ${targetPoints}：${rankName}`;
+  /* ============================
+     カードHTML
+  ============================ */
+  function rankLabel(r) {
+    if (r === 1) return "A";
+    if (r === 11) return "J";
+    if (r === 12) return "Q";
+    if (r === 13) return "K";
+    return "";
   }
 
-
-
-  
   function cardHTML(c) {
-    const isFace = (c.rank === 1 || c.rank === 11 || c.rank === 12 || c.rank === 13);
-
+    const isFace = (c.rank === 1 || c.rank >= 11);
     return `
       <div class="rank-top">${isFace ? rankLabel(c.rank) : "&nbsp;"}</div>
       <div class="rank-mid">${c.rank}</div>
@@ -435,26 +414,15 @@ deck.push({
     `;
   }
 
-  
-  const roundTargets = [18, 47, 35, 53, 19]; // 既存のやつと揃える
-
-  function renderAllOpponentTotals() {
-    const el = document.getElementById("opponentAllTotals");
-    const labels = [
-      `R2: ${roundTargets[1]}`,
-      `R3: ${roundTargets[2]}`,
-      `R4: ${roundTargets[3]}`,
-      `R5: ${roundTargets[4]}`
-    ];
-    el.textContent = "先攻のラウンド別合計点: " + labels.join(" / ");
-  }
-
-
+  /* ============================
+     デッキ表示
+  ============================ */
   function renderDeck() {
     deckArea.innerHTML = "";
     suits.forEach(s => {
       const rowDiv = document.createElement("div");
       rowDiv.className = "row";
+
       const label = document.createElement("span");
       label.className = "label";
       label.textContent = s;
@@ -469,11 +437,14 @@ deck.push({
         if (card.suit === "♥" || card.suit === "♦") div.classList.add("red");
         if (card.used) div.classList.add("used");
         if (playerSelection.includes(card)) div.classList.add("selected");
+
         div.innerHTML = cardHTML(card);
+
         div.onclick = () => {
           if (gameOver || card.used) return;
           toggleSelect(card);
         };
+
         cardsRow.appendChild(div);
       });
 
@@ -482,10 +453,13 @@ deck.push({
     });
   }
 
+  /* ============================
+     カード選択
+  ============================ */
   function toggleSelect(card) {
     const idx = playerSelection.indexOf(card);
     if (idx >= 0) {
-      playerSelection.splice(idx,1);
+      playerSelection.splice(idx, 1);
     } else {
       if (playerSelection.length >= 5) return;
       playerSelection.push(card);
@@ -493,423 +467,290 @@ deck.push({
     renderDeck();
     renderPlayerHand();
   }
-  
-  function rankLabel(r) {
-    if (r === 1) return "A";
-    if (r === 11) return "J";
-    if (r === 12) return "Q";
-    if (r === 13) return "K";
-    return "";
-  }
 
-function renderPlayerHand() {
-  playerHandEl.innerHTML = "";
+  /* ============================
+     あなたの手の表示
+  ============================ */
+  function renderPlayerHand() {
+    playerHandEl.innerHTML = "";
 
-  let sorted = [...playerSelection];
-
-  if (sorted.length === 5) {
-    const evalPl = evaluateHand(sorted);
-    const counts = evalPl.counts;
-    const uniqueVals = evalPl.uniqueVals; // 強い→弱い
+    let sorted = [...playerSelection];
     const rv = c => rankValue[c.rank];
 
-    const getCardsOfVal = (val) =>
-      sorted.filter(c => rv(c) === val);
+    if (sorted.length === 5) {
+      const evalPl = evaluateHand(sorted);
+      const counts = evalPl.counts;
+      const uniqueVals = evalPl.uniqueVals;
 
-    // --- 役ごとの並び替え ---
-    if (evalPl.rankName === "ワンペア") {
-      const pairVal = uniqueVals.find(v => counts[v] === 2);
-      const others = uniqueVals
-        .filter(v => v !== pairVal)
-        .sort((a,b)=>a-b); // 弱い順
+      const getCardsOfVal = val =>
+        sorted.filter(c => rv(c) === val);
 
-      sorted = [
-        ...getCardsOfVal(pairVal),
-        ...others.flatMap(v => getCardsOfVal(v))
-      ];
+      /* ---- 並び替え ---- */
+      if (evalPl.rankName === "ワンペア") {
+        const pairVal = uniqueVals.find(v => counts[v] === 2);
+        const others = uniqueVals.filter(v => v !== pairVal).sort((a,b)=>a-b);
+        sorted = [
+          ...getCardsOfVal(pairVal),
+          ...others.flatMap(v => getCardsOfVal(v))
+        ];
 
-    } else if (evalPl.rankName === "ツーペア") {
-      const pairVals = uniqueVals
-        .filter(v => counts[v] === 2)
-        .sort((a,b)=>b-a); // 強いペア → 弱いペア
-      const kickerVal = uniqueVals.find(v => counts[v] === 1);
+      } else if (evalPl.rankName === "ツーペア") {
+        const pairVals = uniqueVals.filter(v => counts[v] === 2).sort((a,b)=>b-a);
+        const kickerVal = uniqueVals.find(v => counts[v] === 1);
+        sorted = [
+          ...getCardsOfVal(pairVals[0]),
+          ...getCardsOfVal(pairVals[1]),
+          ...getCardsOfVal(kickerVal)
+        ];
 
-      sorted = [
-        ...getCardsOfVal(pairVals[0]),
-        ...getCardsOfVal(pairVals[1]),
-        ...getCardsOfVal(kickerVal)
-      ];
+      } else if (evalPl.rankName === "スリーカード") {
+        const threeVal = uniqueVals.find(v => counts[v] === 3);
+        const others = uniqueVals.filter(v => v !== threeVal).sort((a,b)=>a-b);
+        sorted = [
+          ...getCardsOfVal(threeVal),
+          ...others.flatMap(v => getCardsOfVal(v))
+        ];
 
-    } else if (evalPl.rankName === "スリーカード") {
-      const threeVal = uniqueVals.find(v => counts[v] === 3);
-      const others = uniqueVals
-        .filter(v => v !== threeVal)
-        .sort((a,b)=>a-b); // 弱い順
+      } else if (evalPl.rankName === "フルハウス") {
+        const threeVal = uniqueVals.find(v => counts[v] === 3);
+        const pairVal  = uniqueVals.find(v => counts[v] === 2);
+        sorted = [
+          ...getCardsOfVal(threeVal),
+          ...getCardsOfVal(pairVal)
+        ];
 
-      sorted = [
-        ...getCardsOfVal(threeVal),
-        ...others.flatMap(v => getCardsOfVal(v))
-      ];
+      } else if (evalPl.rankName === "フォーカード") {
+        const fourVal = uniqueVals.find(v => counts[v] === 4);
+        const kickerVal = uniqueVals.find(v => counts[v] === 1);
+        sorted = [
+          ...getCardsOfVal(fourVal),
+          ...getCardsOfVal(kickerVal)
+        ];
 
-    } else if (evalPl.rankName === "フルハウス") {
-      const threeVal = uniqueVals.find(v => counts[v] === 3);
-      const pairVal  = uniqueVals.find(v => counts[v] === 2);
+      } else if (evalPl.rankName.includes("ストレート")) {
+        sorted.sort((a,b)=>rv(a)-rv(b));
 
-      sorted = [
-        ...getCardsOfVal(threeVal),
-        ...getCardsOfVal(pairVal)
-      ];
+      } else if (evalPl.rankName === "フラッシュ") {
+        sorted.sort((a,b)=>rv(a)-rv(b));
 
-    } else if (evalPl.rankName === "フォーカード") {
-      const fourVal = uniqueVals.find(v => counts[v] === 4);
-      const kickerVal = uniqueVals.find(v => counts[v] === 1);
-
-      sorted = [
-        ...getCardsOfVal(fourVal),
-        ...getCardsOfVal(kickerVal)
-      ];
-
-    } else if (
-      evalPl.rankName.includes("ストレート") ||
-      evalPl.rankName.includes("ストレートフラッシュ")
-    ) {
-      // ★ A-5 は理論上出ないので特例削除
-      sorted.sort((a, b) => rv(a) - rv(b)); // 弱い順
-
-    } else if (evalPl.rankName === "フラッシュ") {
-      sorted.sort((a, b) => rv(a) - rv(b)); // 弱い順
-
-    } else {
-      // ハイカード：弱い順
-      sorted.sort((a, b) => rv(a) - rv(b));
-    }
-
-    playerInfoEl.textContent = `役：${evalPl.rankName}`;
-
-  } else {
-    // 5枚未満はランク降順（見やすさ優先）
-    sorted.sort((a,b)=> b.rank - a.rank);
-    playerInfoEl.textContent = `${sorted.length} / 5 枚選択中`;
-  }
-
-  // 表示
-  sorted.forEach(c => {
-    const div = document.createElement("div");
-    div.className = "card" + ((c.suit==="♥"||c.suit==="♦")?" red":"");
-    div.innerHTML = cardHTML(c);
-    playerHandEl.appendChild(div);
-  });
-}
-
-
-function renderOpponentHand() {
-  opponentHandEl.innerHTML = "";
-
-  let sorted = [...opponentHand];
-
-  if (sorted.length === 5) {
-    const evalOpp = evaluateHand(sorted);
-    const counts = evalOpp.counts;
-    const uniqueVals = evalOpp.uniqueVals; // 強い→弱い
-    const rv = c => rankValue[c.rank];
-
-    const getCardsOfVal = (val) =>
-      sorted.filter(c => rv(c) === val);
-
-    // --- 役ごとの並び替え ---
-    if (evalOpp.rankName === "ワンペア") {
-      const pairVal = uniqueVals.find(v => counts[v] === 2);
-      const others = uniqueVals
-        .filter(v => v !== pairVal)
-        .sort((a,b)=>a-b); // 弱い順
-
-      sorted = [
-        ...getCardsOfVal(pairVal),
-        ...others.flatMap(v => getCardsOfVal(v))
-      ];
-
-    } else if (evalOpp.rankName === "ツーペア") {
-      const pairVals = uniqueVals
-        .filter(v => counts[v] === 2)
-        .sort((a,b)=>b-a); // 強いペア → 弱いペア
-      const kickerVal = uniqueVals.find(v => counts[v] === 1);
-
-      sorted = [
-        ...getCardsOfVal(pairVals[0]),
-        ...getCardsOfVal(pairVals[1]),
-        ...getCardsOfVal(kickerVal)
-      ];
-
-    } else if (evalOpp.rankName === "スリーカード") {
-      const threeVal = uniqueVals.find(v => counts[v] === 3);
-      const others = uniqueVals
-        .filter(v => v !== threeVal)
-        .sort((a,b)=>a-b); // 弱い順
-
-      sorted = [
-        ...getCardsOfVal(threeVal),
-        ...others.flatMap(v => getCardsOfVal(v))
-      ];
-
-    } else if (evalOpp.rankName === "フルハウス") {
-      const threeVal = uniqueVals.find(v => counts[v] === 3);
-      const pairVal  = uniqueVals.find(v => counts[v] === 2);
-
-      sorted = [
-        ...getCardsOfVal(threeVal),
-        ...getCardsOfVal(pairVal)
-      ];
-
-    } else if (evalOpp.rankName === "フォーカード") {
-      const fourVal = uniqueVals.find(v => counts[v] === 4);
-      const kickerVal = uniqueVals.find(v => counts[v] === 1);
-
-      sorted = [
-        ...getCardsOfVal(fourVal),
-        ...getCardsOfVal(kickerVal)
-      ];
-
-    } else if (
-      evalOpp.rankName.includes("ストレート") ||
-      evalOpp.rankName.includes("ストレートフラッシュ")
-    ) {
-      // ★ ここが今回のポイント：5,6,7,8,9 の昇順にする
-      sorted.sort((a, b) => rv(a) - rv(b)); // 弱い→強い
-
-    } else if (evalOpp.rankName === "フラッシュ") {
-      sorted.sort((a, b) => rv(a) - rv(b)); // 弱い順
-
-    } else {
-      // ハイカード：弱い順
-      sorted.sort((a, b) => rv(a) - rv(b));
-    }
-
-    opponentInfoEl.textContent = `役：${evalOpp.rankName}`;
-
-  } else {
-    // 5枚未満はランク降順（見やすさ優先）
-    sorted.sort((a,b)=> b.rank - a.rank);
-    opponentInfoEl.textContent = `${sorted.length} 枚`;
-  }
-
-  // 表示
-  sorted.forEach(c => {
-    const div = document.createElement("div");
-    div.className = "card" + ((c.suit==="♥"||c.suit==="♦")?" red":"");
-    div.innerHTML = cardHTML(c);
-    opponentHandEl.appendChild(div);
-  });
-}
-
-
-// --- 役判定 ---
-function evaluateHand(cards) {
-  const valuesRaw = cards.map(c => rankValue[c.rank]).sort((a,b)=>b-a);
-  const suitsArr = cards.map(c => c.suit);
-  const counts = {};
-  valuesRaw.forEach(v => counts[v] = (counts[v]||0)+1);
-  const uniqueVals = Object.keys(counts).map(Number).sort((a,b)=>b-a);
-  const isFlush = suitsArr.every(s => s === suitsArr[0]);
-  let isStraight = false;
-  let highStraight = valuesRaw[0];
-
-  if (valuesRaw[0]-valuesRaw[4] === 4 && new Set(valuesRaw).size === 5) {
-    isStraight = true;
-    highStraight = valuesRaw[0];
-  }
-  if (JSON.stringify(valuesRaw) === JSON.stringify([14,5,4,3,2])) {
-    isStraight = true;
-    highStraight = 5;
-  }
-
-  const countVals = Object.values(counts).sort((a,b)=>b-a);
-  let rankName = "";
-  let score = 0;
-  let values = [];
-
-  if (isStraight && isFlush && highStraight === 14) {
-    rankName = "ロイヤルストレートフラッシュ"; score = 9;
-    values = [highStraight];
-  } else if (isStraight && isFlush) {
-    rankName = "ストレートフラッシュ"; score = 8;
-    values = [highStraight];
-  } else if (countVals[0] === 4) {
-    rankName = "フォーカード"; score = 7;
-    const four = Number(Object.keys(counts).find(v => counts[v] === 4));
-    const kicker = Number(Object.keys(counts).find(v => counts[v] === 1));
-    // フォーカード同士の比較は「4枚のランク」優先
-    values = [four, kicker];
-  } else if (countVals[0] === 3 && countVals[1] === 2) {
-    rankName = "フルハウス"; score = 6;
-    const three = Number(Object.keys(counts).find(v => counts[v] === 3));
-    const pair = Number(Object.keys(counts).find(v => counts[v] === 2));
-    values = [three, pair];
-  } else if (isFlush) {
-    rankName = "フラッシュ"; score = 5;
-    values = valuesRaw;
-  } else if (isStraight) {
-    rankName = "ストレート"; score = 4;
-    values = [highStraight];
-  } else if (countVals[0] === 3) {
-    rankName = "スリーカード"; score = 3;
-    const three = Number(Object.keys(counts).find(v => counts[v] === 3));
-    const kickers = Object.keys(counts)
-      .filter(v => counts[v] === 1)
-      .map(Number)
-      .sort((a,b)=>b-a);
-    values = [three, ...kickers];
-  } else if (countVals[0] === 2 && countVals[1] === 2) {
-    rankName = "ツーペア"; score = 2;
-    const pairs = Object.keys(counts)
-      .filter(v => counts[v] === 2)
-      .map(Number)
-      .sort((a,b)=>b-a);
-    const kicker = Number(Object.keys(counts).find(v => counts[v] === 1));
-    values = [...pairs, kicker];
-  } else if (countVals[0] === 2) {
-    rankName = "ワンペア"; score = 1;
-    const pair = Number(Object.keys(counts).find(v => counts[v] === 2));
-    const kickers = Object.keys(counts)
-      .filter(v => counts[v] === 1)
-      .map(Number)
-      .sort((a,b)=>b-a);
-    values = [pair, ...kickers];
-  } else {
-    rankName = "ハイカード"; score = 0;
-    values = valuesRaw;
-  }
-
-  return { score, rankName, values, counts, uniqueVals, isFlush, isStraight, highStraight };
-}
-    
-    function compareHands(player, opp) {
-  // まず役の強さで比較
-  if (player.score > opp.score) return 1;
-  if (player.score < opp.score) return -1;
-
-  // ★ values の長さに合わせて比較（役ごとに長さが違うため）
-  const len = Math.max(player.values.length, opp.values.length);
-  for (let i = 0; i < len; i++) {
-    const pv = player.values[i] ?? 0;
-    const ov = opp.values[i] ?? 0;
-    if (pv > ov) return 1;
-    if (pv < ov) return -1;
-  }
-
-  return 0;
-}
-
-
-// --- 先攻の手生成（点数縛り・完全修正版） ---
-function generateOpponentHand() {
-  const targetPoints = [18, 47, 35, 53, 19][round - 1];
-  const remaining = deck.filter(c => !c.used);
-
-  // ランクごとに残っているカードを分類
-  const rankMap = {};
-  for (const r of ranks) rankMap[r] = [];
-  remaining.forEach(c => rankMap[c.rank].push(c));
-
-  // 点数計算用
-  const rankPoint = {
-    1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 7:7,
-    8:8, 9:9, 10:10, 11:11, 12:12, 13:13
-  };
-
-  let bestHand = null;
-  let bestEval = null;
-
-  // ランクの重複あり組み合わせ（5つ選ぶ）
-  function* rankMultisetCombos(k, combo = []) {
-    if (combo.length === k) {
-      yield combo;
-      return;
-    }
-    for (const r of ranks) {
-      yield* rankMultisetCombos(k, combo.concat(r));
-    }
-  }
-
-  for (const rankSet of rankMultisetCombos(5)) {
-
-    // 点数チェック
-    const sum = rankSet.reduce((a, r) => a + rankPoint[r], 0);
-    if (sum !== targetPoints) continue;
-
-    // ランクごとに必要枚数を数える
-    const need = {};
-    for (const r of rankSet) need[r] = (need[r] || 0) + 1;
-
-    // 実際に残っているカードで作れるか
-    let ok = true;
-    for (const r in need) {
-      if (rankMap[r].length < need[r]) {
-        ok = false;
-        break;
+      } else {
+        sorted.sort((a,b)=>rv(a)-rv(b));
       }
-    }
-    if (!ok) continue;
 
-    // 実際のカードを割り当てる
-    let hand = [];
-    const usedTemp = {};
-    for (const r of rankSet) {
-      usedTemp[r] = usedTemp[r] || 0;
-      hand.push(rankMap[r][usedTemp[r]]);
-      usedTemp[r]++;
+      playerInfoEl.textContent = `役：${evalPl.rankName}`;
+
+    } else {
+      sorted.sort((a,b)=>b.rank-a.rank);
+      playerInfoEl.textContent = `選択中：${sorted.length}/5枚`;
     }
 
-    const evalHand = evaluateHand(hand);
-
-    // 最強役を更新
-    if (!bestHand ||
-        evalHand.score > bestEval.score ||
-        (evalHand.score === bestEval.score &&
-         isBetterValues(evalHand.values, bestEval.values))) {
-      bestHand = hand;
-      bestEval = evalHand;
-    }
+    sorted.forEach(c => {
+      const div = document.createElement("div");
+      div.className = "card" + ((c.suit==="♥"||c.suit==="♦")?" red":"");
+      div.innerHTML = cardHTML(c);
+      playerHandEl.appendChild(div);
+    });
   }
 
-  // 不成立
-  if (!bestHand) {
-    opponentHand = [];
-    opponentHandEl.innerHTML = "<div style='color:#ff7675'>不成立</div>";
-    opponentInfoEl.textContent = `合計点 ${targetPoints}：役が作れません`;
-    statusEl.textContent = "先攻は役不成立。あなたが役を作れれば勝ち。";
+  /* ============================
+     先攻の手の表示
+  ============================ */
+  function renderOpponentHand() {
+    opponentHandEl.innerHTML = "";
 
-    // ★ NEXT 表示更新
-    updateNextRoundInfo();
-    return;
+    let sorted = [...opponentHand];
+    const rv = c => rankValue[c.rank];
+
+    if (sorted.length === 5) {
+      const evalOpp = evaluateHand(sorted);
+      const counts = evalOpp.counts;
+      const uniqueVals = evalOpp.uniqueVals;
+
+      const getCardsOfVal = val =>
+        sorted.filter(c => rv(c) === val);
+
+      if (evalOpp.rankName === "ワンペア") {
+        const pairVal = uniqueVals.find(v => counts[v] === 2);
+        const others = uniqueVals.filter(v => v !== pairVal).sort((a,b)=>a-b);
+        sorted = [
+          ...getCardsOfVal(pairVal),
+          ...others.flatMap(v => getCardsOfVal(v))
+        ];
+
+      } else if (evalOpp.rankName === "ツーペア") {
+        const pairVals = uniqueVals.filter(v => counts[v] === 2).sort((a,b)=>b-a);
+        const kickerVal = uniqueVals.find(v => counts[v] === 1);
+        sorted = [
+          ...getCardsOfVal(pairVals[0]),
+          ...getCardsOfVal(pairVals[1]),
+          ...getCardsOfVal(kickerVal)
+        ];
+
+      } else if (evalOpp.rankName === "スリーカード") {
+        const threeVal = uniqueVals.find(v => counts[v] === 3);
+        const others = uniqueVals.filter(v => v !== threeVal).sort((a,b)=>a-b);
+        sorted = [
+          ...getCardsOfVal(threeVal),
+          ...others.flatMap(v => getCardsOfVal(v))
+        ];
+
+      } else if (evalOpp.rankName === "フルハウス") {
+        const threeVal = uniqueVals.find(v => counts[v] === 3);
+        const pairVal  = uniqueVals.find(v => counts[v] === 2);
+        sorted = [
+          ...getCardsOfVal(threeVal),
+          ...getCardsOfVal(pairVal)
+        ];
+
+      } else if (evalOpp.rankName === "フォーカード") {
+        const fourVal = uniqueVals.find(v => counts[v] === 4);
+        const kickerVal = uniqueVals.find(v => counts[v] === 1);
+        sorted = [
+          ...getCardsOfVal(fourVal),
+          ...getCardsOfVal(kickerVal)
+        ];
+
+      } else if (evalOpp.rankName.includes("ストレート")) {
+        sorted.sort((a,b)=>rv(a)-rv(b));
+
+      } else if (evalOpp.rankName === "フラッシュ") {
+        sorted.sort((a,b)=>rv(a)-rv(b));
+
+      } else {
+        sorted.sort((a,b)=>rv(a)-rv(b));
+      }
+
+      opponentInfoEl.textContent = `役：${evalOpp.rankName}`;
+
+    } else {
+      sorted.sort((a,b)=>b.rank-a.rank);
+      opponentInfoEl.textContent = `${sorted.length}枚`;
+    }
+
+    sorted.forEach(c => {
+      const div = document.createElement("div");
+      div.className = "card" + ((c.suit==="♥"||c.suit==="♦")?" red":"");
+      div.innerHTML = cardHTML(c);
+      opponentHandEl.appendChild(div);
+    });
   }
 
-  // 成立
-  opponentHand = bestHand;
-  useCards(opponentHand);
-  renderOpponentHand();
+  /* ============================
+     役判定
+  ============================ */
+  function evaluateHand(cards) {
+    const valuesRaw = cards.map(c => rankValue[c.rank]).sort((a,b)=>b-a);
+    const suitsArr = cards.map(c => c.suit);
 
-  opponentInfoEl.textContent = `合計点 ${targetPoints}：${bestEval.rankName}`;
-  statusEl.textContent = "先攻の手が決まりました。カードを5枚選んでください。";
+    const counts = {};
+    valuesRaw.forEach(v => counts[v] = (counts[v]||0)+1);
 
-  // ★ 現在ラウンドの表示
-  document.getElementById("currentInfo").textContent =
-    `合計点 ${targetPoints}：${bestEval.rankName}`;
+    const uniqueVals = Object.keys(counts).map(Number).sort((a,b)=>b-a);
 
-  // ★ NEXT 表示更新
-  updateNextRoundInfo();
-}
+    const isFlush = suitsArr.every(s => s === suitsArr[0]);
 
-  function isBetterValues(a, b) {
-    const len = Math.max(a.length, b.length);
+    let isStraight = false;
+    let highStraight = valuesRaw[0];
+
+    if (valuesRaw[0]-valuesRaw[4] === 4 && new Set(valuesRaw).size === 5) {
+      isStraight = true;
+      highStraight = valuesRaw[0];
+    }
+
+    if (JSON.stringify(valuesRaw) === JSON.stringify([14,5,4,3,2])) {
+      isStraight = true;
+      highStraight = 5;
+    }
+
+    const countVals = Object.values(counts).sort((a,b)=>b-a);
+
+    let rankName = "";
+    let score = 0;
+    let values = [];
+
+    if (isStraight && isFlush && highStraight === 14) {
+      rankName = "ロイヤルストレートフラッシュ"; score = 9;
+      values = [highStraight];
+
+    } else if (isStraight && isFlush) {
+      rankName = "ストレートフラッシュ"; score = 8;
+      values = [highStraight];
+
+    } else if (countVals[0] === 4) {
+      rankName = "フォーカード"; score = 7;
+      const four = Number(Object.keys(counts).find(v => counts[v] === 4));
+      const kicker = Number(Object.keys(counts).find(v => counts[v] === 1));
+      values = [four, kicker];
+
+    } else if (countVals[0] === 3 && countVals[1] === 2) {
+      rankName = "フルハウス"; score = 6;
+      const three = Number(Object.keys(counts).find(v => counts[v] === 3));
+      const pair = Number(Object.keys(counts).find(v => counts[v] === 2));
+      values = [three, pair];
+
+    } else if (isFlush) {
+      rankName = "フラッシュ"; score = 5;
+      values = valuesRaw;
+
+    } else if (isStraight) {
+      rankName = "ストレート"; score = 4;
+      values = [highStraight];
+
+    } else if (countVals[0] === 3) {
+      rankName = "スリーカード"; score = 3;
+      const three = Number(Object.keys(counts).find(v => counts[v] === 3));
+      const kickers = Object.keys(counts)
+        .filter(v => counts[v] === 1)
+        .map(Number)
+        .sort((a,b)=>b-a);
+      values = [three, ...kickers];
+
+    } else if (countVals[0] === 2 && countVals[1] === 2) {
+      rankName = "ツーペア"; score = 2;
+      const pairs = Object.keys(counts)
+        .filter(v => counts[v] === 2)
+        .map(Number)
+        .sort((a,b)=>b-a);
+      const kicker = Number(Object.keys(counts).find(v => counts[v] === 1));
+      values = [...pairs, kicker];
+
+    } else if (countVals[0] === 2) {
+      rankName = "ワンペア"; score = 1;
+      const pair = Number(Object.keys(counts).find(v => counts[v] === 2));
+      const kickers = Object.keys(counts)
+        .filter(v => counts[v] === 1)
+        .map(Number)
+        .sort((a,b)=>b-a);
+      values = [pair, ...kickers];
+
+    } else {
+      rankName = "ハイカード"; score = 0;
+      values = valuesRaw;
+    }
+
+    return { score, rankName, values, counts, uniqueVals, isFlush, isStraight, highStraight };
+  }
+
+  /* ============================
+     役比較
+  ============================ */
+  function compareHands(player, opp) {
+    if (player.score > opp.score) return 1;
+    if (player.score < opp.score) return -1;
+
+    const len = Math.max(player.values.length, opp.values.length);
     for (let i = 0; i < len; i++) {
-      const av = a[i] ?? 0;
-      const bv = b[i] ?? 0;
-      if (av > bv) return true;
-      if (av < bv) return false;
+      const pv = player.values[i] ?? 0;
+      const ov = opp.values[i] ?? 0;
+      if (pv > ov) return 1;
+      if (pv < ov) return -1;
     }
-    return false;
+    return 0;
   }
 
+  /* ============================
+     先攻の手を使用済みにする
+  ============================ */
   function useCards(cards) {
     cards.forEach(c => {
       const d = deck.find(x => x.id === c.id);
@@ -917,28 +758,114 @@ function generateOpponentHand() {
     });
   }
 
-  function nextRound() {
-    if (round >= 5) {
-      statusEl.textContent = "5ラウンド生存。クリア！";
-      log("5ラウンド無敗でクリア。クリア達成。");
-      gameOver = true;
-      judgeBtn.disabled = true;
-      clearBtn.disabled = true;
-      retryBtn.style.display = "inline-block";   // ★ 追加
+  /* ============================
+     ラウンド別ターゲット
+  ============================ */
+  const roundTargets = [18, 47, 35, 53, 19];
+
+  /* ============================
+     先攻の手生成（点数縛り）
+  ============================ */
+  function generateOpponentHand() {
+    const targetPoints = roundTargets[round - 1];
+    const remaining = deck.filter(c => !c.used);
+
+    const rankMap = {};
+    for (const r of ranks) rankMap[r] = [];
+    remaining.forEach(c => rankMap[c.rank].push(c));
+
+    let bestHand = null;
+    let bestEval = null;
+
+    function* rankMultisetCombos(k, combo = []) {
+      if (combo.length === k) {
+        yield combo;
+        return;
+      }
+      for (const r of ranks) {
+        yield* rankMultisetCombos(k, combo.concat(r));
+      }
+    }
+
+    for (const rankSet of rankMultisetCombos(5)) {
+      const sum = rankSet.reduce((a, r) => a + rankPoint[r], 0);
+      if (sum !== targetPoints) continue;
+
+      const need = {};
+      for (const r of rankSet) need[r] = (need[r] || 0) + 1;
+
+      let ok = true;
+      for (const r in need) {
+        if (rankMap[r].length < need[r]) {
+          ok = false;
+          break;
+        }
+      }
+      if (!ok) continue;
+
+      let hand = [];
+      const usedTemp = {};
+      for (const r of rankSet) {
+        usedTemp[r] = usedTemp[r] || 0;
+        hand.push(rankMap[r][usedTemp[r]]);
+        usedTemp[r]++;
+      }
+
+      const evalHand = evaluateHand(hand);
+
+      if (!bestHand ||
+          evalHand.score > bestEval.score ||
+          (evalHand.score === bestEval.score &&
+           compareHands(evalHand, bestEval) > 0)) {
+        bestHand = hand;
+        bestEval = evalHand;
+      }
+    }
+
+    if (!bestHand) {
+      opponentHand = [];
+      opponentHandEl.innerHTML = "<div style='color:#ff7675'>不成立</div>";
+      opponentInfoEl.textContent = `合計点 ${targetPoints}：役が作れません`;
+      statusEl.textContent = "先攻は役不成立。あなたが役を作れば勝ち。";
+      updateNextRoundInfo();
       return;
     }
-    round++;
-    roundEl.textContent = round;
-    playerSelection = [];
-    renderPlayerHand();
-    generateOpponentHand();
-    renderDeck();
-    updateNextRoundInfo();
-    updateCurrentRoundInfo(targetPoints, bestEval.rankName);
-    updateNextRoundInfo();
 
+    opponentHand = bestHand;
+    useCards(opponentHand);
+    renderOpponentHand();
+
+    opponentInfoEl.textContent = `合計点 ${targetPoints}：${bestEval.rankName}`;
+    statusEl.textContent = "先攻の手が決まりました。カードを5枚選んでください。";
+
+    document.getElementById("currentInfo").textContent =
+      `合計点 ${targetPoints}：${bestEval.rankName}`;
+
+    updateNextRoundInfo();
   }
 
+  /* ============================
+     NEXT → 情報更新
+  ============================ */
+  function updateNextRoundInfo() {
+    const nextEl = document.getElementById("nextInfo");
+
+    nextEl.classList.remove("fade");
+    void nextEl.offsetWidth;
+    nextEl.classList.add("fade");
+
+    if (round >= 5) {
+      nextEl.textContent = "NEXT → クリア";
+      nextEl.className = "round-color-5";
+    } else {
+      nextEl.textContent = `NEXT → ${round + 1}R: ${roundTargets[round]}`;
+      nextEl.className = `round-color-${round + 1}`;
+    }
+  }
+
+  /* ============================
+     勝敗判定
+  ============================ */
   judgeBtn.onclick = () => {
     if (gameOver) return;
     if (playerSelection.length !== 5) {
@@ -949,7 +876,6 @@ function generateOpponentHand() {
     const evalPl = evaluateHand(playerSelection);
     playerInfoEl.textContent = `役：${evalPl.rankName}`;
 
-    // 先攻不成立
     if (opponentHand.length === 0) {
       if (evalPl.score >= 0) {
         log(`ラウンド${round}: 勝ち（先攻不成立）。あなた=${evalPl.rankName}`);
@@ -963,7 +889,7 @@ function generateOpponentHand() {
         gameOver = true;
         judgeBtn.disabled = true;
         clearBtn.disabled = true;
-        retryBtn.style.display = "inline-block";   // ★ 追加
+        retryBtn.style.display = "inline-block";
       }
       return;
     }
@@ -978,23 +904,87 @@ function generateOpponentHand() {
       useCards(playerSelection);
       renderDeck();
       setTimeout(nextRound, 600);
+
     } else if (res < 0) {
       log(`ラウンド${round}: 負け… あなた=${evalPl.rankName} / 先攻=${evalOpp.rankName}`);
       statusEl.textContent = "負け。ゲームオーバー。";
       gameOver = true;
       judgeBtn.disabled = true;
       clearBtn.disabled = true;
-      retryBtn.style.display = "inline-block";   // ★ 追加
+      retryBtn.style.display = "inline-block";
+
     } else {
       log(`ラウンド${round}: 引き分け（同格）。今回は負け扱い。`);
       statusEl.textContent = "先攻と同じ役。後攻の負け。";
       gameOver = true;
       judgeBtn.disabled = true;
       clearBtn.disabled = true;
-      retryBtn.style.display = "inline-block";   // ★ 追加
+      retryBtn.style.display = "inline-block";
     }
   };
+  
+retryBtn.onclick = () => {
+  // 全リセット
+  round = 1;
+  gameOver = false;
 
+  deck = [];
+  playerSelection = [];
+  opponentHand = [];
+
+  // ラベル色リセット
+  document.getElementById("currentInfo").className = "";
+  document.getElementById("nextInfo").className = "";
+
+  // 初期化処理
+  createDeck();
+  generateOpponentHand();
+  renderDeck();
+  renderPlayerHand();
+
+  document.getElementById("opponentAllTotals").textContent =
+    "先攻のラウンド別合計点: R2:47 / R3:35 / R4:53 / R5:19";
+
+  log("=== リトライ ===");
+
+  judgeBtn.disabled = false;
+  clearBtn.disabled = false;
+
+  statusEl.textContent = "ゲーム再開。カードを5枚選んでください。";
+
+  // 念のため表示
+  retryBtn.style.display = "inline-block";
+};
+
+
+
+
+  /* ============================
+     次ラウンド
+  ============================ */
+  function nextRound() {
+    if (round >= 5) {
+      statusEl.textContent = "5ラウンド生存。クリア！";
+      log("5ラウンド無敗でクリア。クリア達成。");
+      gameOver = true;
+      judgeBtn.disabled = true;
+      clearBtn.disabled = true;
+      retryBtn.style.display = "inline-block";
+      return;
+    }
+
+    round++;
+    roundEl.textContent = round;
+    playerSelection = [];
+    renderPlayerHand();
+    generateOpponentHand();
+    renderDeck();
+    updateNextRoundInfo();
+  }
+
+  /* ============================
+     クリアボタン
+  ============================ */
   clearBtn.onclick = () => {
     if (gameOver) return;
     playerSelection = [];
@@ -1002,35 +992,47 @@ function generateOpponentHand() {
     renderPlayerHand();
   };
 
-  // 初期化
+  /* ============================
+     ログ折りたたみ
+  ============================ */
+  window.toggleLog = function() {
+    const log = document.getElementById("log");
+    log.style.display = (log.style.display === "none") ? "block" : "none";
+  };
+
+  /* ============================
+     初期化
+  ============================ */
   createDeck();
   generateOpponentHand();
-  useCards(opponentHand);      // ★ ラウンド1の先攻手を使用済みにする（重要）
+  useCards(opponentHand);
   renderDeck();
   renderPlayerHand();
-  renderAllOpponentTotals();   // ★ これを追加
+  document.getElementById("opponentAllTotals").textContent =
+    "先攻のラウンド別合計点: R2:47 / R3:35 / R4:53 / R5:19";
   log("ゲーム開始。先攻の手を見て、後出しで5枚選んでください。");
 
 })();
-// ▼ ルールモーダルのJS（script の中にこれを入れる）
+</script>
+
+<!-- ▼ ルールモーダル -->
+<div id="ruleModal" class="rule-modal hidden">
+  <div class="rule-content">
+    <h2>ルール説明</h2>
+    <div id="ruleText"></div>
+    <button id="closeRule" class="close-btn">閉じる</button>
+  </div>
+</div>
+
+<script>
 window.addEventListener("DOMContentLoaded", () => {
   const ruleBtn   = document.getElementById("ruleBtn");
   const ruleModal = document.getElementById("ruleModal");
   const closeRule = document.getElementById("closeRule");
   const ruleText  = document.getElementById("ruleText");
 
-  if (!ruleBtn || !ruleModal || !closeRule || !ruleText) {
-    console.warn("ルール用の要素が見つかりません");
-    return;
-  }
-
-  ruleBtn.onclick = () => {
-    ruleModal.classList.remove("hidden");
-  };
-
-  closeRule.onclick = () => {
-    ruleModal.classList.add("hidden");
-  };
+  ruleBtn.onclick = () => ruleModal.classList.remove("hidden");
+  closeRule.onclick = () => ruleModal.classList.add("hidden");
 
   ruleText.innerHTML = `
 <h3>ゲーム概要</h3>
@@ -1052,23 +1054,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
 <h3>先攻のラウンド別合計点:</h3>
 <p>1R:18 / 2R:47 / 3R:35 / 4R:53 / 5R:19</p>
-
-
 `;
 });
-
 </script>
-<!-- ▼ ルール確認ボタン -->
-<button id="ruleBtn" class="rule-btn">ルール確認</button>
-
-<!-- ▼ モーダル本体 -->
-<div id="ruleModal" class="rule-modal hidden">
-  <div class="rule-content">
-    <h2>ルール説明</h2>
-    <div id="ruleText"></div>
-    <button id="closeRule" class="close-btn">閉じる</button>
-  </div>
-</div>
 
 </body>
 </html>
