@@ -235,6 +235,10 @@
         margin-bottom: 10px;
       }
 
+      .label {
+        display: none;
+      }
+
       .hand .card {
         width: 44px;
         height: 60px;
@@ -835,7 +839,6 @@
     useCards(opponentHand);
     renderOpponentHand();
 
-    opponentInfoEl.textContent = `合計点 ${targetPoints}：${bestEval.rankName}`;
     statusEl.textContent = "先攻の手が決まりました。カードを5枚選んでください。";
 
     document.getElementById("currentInfo").textContent =
