@@ -147,10 +147,9 @@
     .tag-danger { background: #2d3436; color: #ff7675; border: 1px solid #d63031; }
     .tag-ok { background: #2d3436; color: #55efc4; border: 1px solid #00b894; }
 
-    .rank-top {
-      font-size: 10px;
-      line-height: 10px;
-      margin-bottom: 2px;
+    .rank-top { font-size: 8px; margin-bottom: 0; }
+    .rank-mid { font-size: 12px; line-height: 12px; }
+    .suit     { font-size: 10px; margin-top: 0; }
     }
 
     .rank-mid {
@@ -237,8 +236,8 @@
       }
 
       .hand .card {
-        width: 48px;
-        height: 68px;
+        width: 44px;
+        height: 60px;
       }
 
       /* あなたの手の3ボタン横並び用 */
@@ -257,14 +256,15 @@
 
       .cards-row {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 6px;
+        grid-template-columns: repeat(7, 1fr); /* 横7枚 */
+        gap: 4px;
       }
 
       .cards-row .card {
         width: 100%;
-        height: 56px;
-        font-size: 13px;
+        height: 40px;      /* 小さめ */
+        padding: 0;
+        font-size: 10px;
       }
 
       .rule-btn {
