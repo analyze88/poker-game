@@ -4,282 +4,273 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>後出しポーカー</title>
-  <style>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    padding: 16px;
+    background: #181a1f;
+    color: #f5f5f5;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin: 0 0 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+
+  .area {
+    margin-bottom: 16px;
+  }
+
+  .row {
+    margin-bottom: 4px;
+  }
+
+  .label {
+    display: inline-block;
+    width: 32px;
+    text-align: right;
+    margin-right: 4px;
+    color: #aaa;
+  }
+
+  .cards-row {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  .card {
+    width: 44px;
+    height: 60px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    background: #262a33;
+    color: #f5f5f5;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    user-select: none;
+    transition: transform 0.05s ease, box-shadow 0.05s ease, border-color 0.05s ease;
+  }
+
+  .card.red { color: #ff7675; }
+
+  .card.used {
+    background: #3a3d45;
+    color: #888;
+    border-color: #444;
+    cursor: default;
+    box-shadow: none;
+    opacity: 0.6;
+  }
+
+  .card.selected {
+    border-color: #00cec9;
+    box-shadow: 0 0 6px rgba(0, 206, 201, 0.8);
+    transform: translateY(-2px);
+  }
+
+  .card:not(.used):hover {
+    border-color: #74b9ff;
+    box-shadow: 0 0 4px rgba(116, 185, 255, 0.7);
+    transform: translateY(-1px);
+  }
+
+  /* PC版のカード内部フォント */
+  .rank-top { font-size: 10px; margin-bottom: 2px; }
+  .rank-mid { font-size: 16px; font-weight: bold; line-height: 16px; }
+  .suit     { font-size: 12px; margin-top: 2px; }
+
+  /* 先攻の手・あなたの手の余白を詰める（PCでも有効） */
+  .hand {
+    min-height: 0;
+    padding: 0;
+    margin-bottom: 0;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background: #2d3436;
+    color: #f5f5f5;
+  }
+
+  .btn:hover { background: #3b4246; }
+  .btn:disabled { opacity: 0.5; cursor: default; }
+
+  .status-line {
+    padding: 6px 8px;
+    border-radius: 4px;
+    background: #20242b;
+    border: 1px solid #333;
+    font-size: 13px;
+  }
+
+  .log {
+    white-space: pre-line;
+    background: #111;
+    padding: 8px;
+    border-radius: 4px;
+    max-height: 220px;
+    overflow-y: auto;
+    font-size: 12px;
+    border: 1px solid #333;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    margin-left: 4px;
+  }
+
+  .tag-op { background: #2d3436; color: #ffeaa7; border: 1px solid #636e72; }
+  .tag-pl { background: #2d3436; color: #81ecec; border: 1px solid #00cec9; }
+  .tag-danger { background: #2d3436; color: #ff7675; border: 1px solid #d63031; }
+  .tag-ok { background: #2d3436; color: #55efc4; border: 1px solid #00b894; }
+
+  .rule-btn {
+    font-size: 14px;
+    padding: 4px 10px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .rule-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  .rule-modal.hidden { display: none; }
+
+  .rule-content {
+    background: white;
+    color: #000;
+    padding: 20px;
+    width: 85%;
+    max-width: 500px;
+    border-radius: 8px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .close-btn {
+    margin-top: 20px;
+    padding: 6px 12px;
+  }
+
+  .round-color-1 { color: #74b9ff; }
+  .round-color-2 { color: #55efc4; }
+  .round-color-3 { color: #ffeaa7; }
+  .round-color-4 { color: #fab1a0; }
+  .round-color-5 { color: #ff7675; }
+
+  .fade {
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-3px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ▼ スマホ用レイアウト最適化 ▼ */
+  @media (max-width: 600px) {
+
     body {
-      font-family: system-ui, sans-serif;
-      padding: 16px;
-      background: #181a1f;
-      color: #f5f5f5;
-      margin: 0;
+      font-size: 16px;
+      padding: 8px;
     }
 
     h1 {
-      font-size: 22px;
-      margin: 0 0 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
+      font-size: 20px;
+      margin-bottom: 6px;
     }
 
-    h2 {
-      font-size: 16px;
-      margin: 8px 0;
+    .area { margin-bottom: 10px; }
+
+    /* スートラベル非表示 */
+    .label { display: none; }
+
+    /* 先攻の手・あなたの手のカードを小型化 */
+    .hand .card {
+      width: 40px;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      font-size: 10px;
     }
 
-    .area {
-      margin-bottom: 16px;
-    }
-
-    .row {
-      margin-bottom: 4px;
-    }
-
-    .label {
-      display: inline-block;
-      width: 32px;
-      text-align: right;
-      margin-right: 4px;
-      color: #aaa;
-    }
-
-    .cards-row {
-      display: inline-flex;
-      flex-wrap: nowrap;
-      gap: 4px;
-    }
-
-    .card {
-      width: 44px;
-      height: 60px;
-      border-radius: 6px;
-      border: 1px solid #555;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      cursor: pointer;
-      background: #262a33;
-      color: #f5f5f5;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.5);
-      user-select: none;
-      transition: transform 0.05s ease, box-shadow 0.05s ease, border-color 0.05s ease;
-    }
-
-    .card.red { color: #ff7675; }
-
-    .card.used {
-      background: #3a3d45;
-      color: #888;
-      border-color: #444;
-      cursor: default;
-      box-shadow: none;
-      opacity: 0.6;
-    }
-
-    .card.selected {
-      border-color: #00cec9;
-      box-shadow: 0 0 6px rgba(0, 206, 201, 0.8);
-      transform: translateY(-2px);
-    }
-
-    .card:not(.used):hover {
-      border-color: #74b9ff;
-      box-shadow: 0 0 4px rgba(116, 185, 255, 0.7);
-      transform: translateY(-1px);
-    }
-
-      /* 先攻の手・あなたの手の余白を完全に詰める */
-    .hand {
-      min-height: 0;     /* 64px → 0 */
-      padding: 0;        /* 上下の余白を削除 */
-      margin-bottom: 0;  /* 念のため */
-    }
-
-    .btn {
-      padding: 6px 12px;
-      cursor: pointer;
-      border-radius: 4px;
-      border: 1px solid #555;
-      background: #2d3436;
-      color: #f5f5f5;
-    }
-
-    .btn:hover {
-      background: #3b4246;
-    }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-
-    .status-line {
-      padding: 6px 8px;
-      border-radius: 4px;
-      background: #20242b;
-      border: 1px solid #333;
-      font-size: 13px;
-    }
-
-    .log {
-      white-space: pre-line;
-      background: #111;
-      padding: 8px;
-      border-radius: 4px;
-      max-height: 220px;
-      overflow-y: auto;
-      font-size: 12px;
-      border: 1px solid #333;
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-size: 11px;
-      margin-left: 4px;
-    }
-
-    .tag-op { background: #2d3436; color: #ffeaa7; border: 1px solid #636e72; }
-    .tag-pl { background: #2d3436; color: #81ecec; border: 1px solid #00cec9; }
-    .tag-danger { background: #2d3436; color: #ff7675; border: 1px solid #d63031; }
-    .tag-ok { background: #2d3436; color: #55efc4; border: 1px solid #00b894; }
-
+    /* カード内部フォントも小型化 */
     .rank-top { font-size: 8px; margin-bottom: 0; }
     .rank-mid { font-size: 12px; line-height: 12px; }
     .suit     { font-size: 10px; margin-top: 0; }
+
+    /* ボタン横並び */
+    .btn-bar {
+      display: flex;
+      gap: 4px;
+      margin: 4px 0;
     }
 
-    .rank-mid {
-      font-size: 16px;
-      font-weight: bold;
-      line-height: 16px;
+    .btn-bar .btn {
+      flex: 1;
+      padding: 6px 0;
+      font-size: 13px;
+      margin: 0;
     }
 
-    .suit {
-      font-size: 12px;
-      margin-top: 2px;
+    /* 残りカード：横7枚×2段 */
+    .cards-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .cards-row .card {
+      width: 100%;
+      height: 40px;
+      padding: 0;
+      font-size: 10px;
     }
 
     .rule-btn {
-      font-size: 14px;
-      padding: 4px 10px;
-      background: #fff;
-      color: #000;
-      border: 1px solid #333;
-      border-radius: 4px;
-      cursor: pointer;
+      font-size: 13px;
+      padding: 4px 8px;
     }
 
-    .rule-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
+    .log { max-height: 140px; }
+  }
+</style>
 
-    .rule-modal.hidden {
-      display: none;
-    }
-
-    .rule-content {
-      background: white;
-      color: #000;
-      padding: 20px;
-      width: 85%;
-      max-width: 500px;
-      border-radius: 8px;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-
-    .close-btn {
-      margin-top: 20px;
-      padding: 6px 12px;
-    }
-
-    .round-color-1 { color: #74b9ff; }
-    .round-color-2 { color: #55efc4; }
-    .round-color-3 { color: #ffeaa7; }
-    .round-color-4 { color: #fab1a0; }
-    .round-color-5 { color: #ff7675; }
-
-    .fade {
-      animation: fadeIn 0.4s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-3px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ▼ スマホ用レイアウト最適化 ▼ */
-    @media (max-width: 600px) {
-
-      body {
-        font-size: 16px;
-        padding: 8px;
-      }
-
-      h1 {
-        font-size: 20px;
-        margin-bottom: 6px;
-      }
-
-      .area {
-        margin-bottom: 10px;
-      }
-
-      .label {
-        display: none;
-      }
-
-      .hand .card {
-        margin: 0;         /* カードの外側余白を削除 */
-      }
-
-      /* あなたの手の3ボタン横並び用 */
-      .btn-bar {
-        display: flex;
-        gap: 4px;
-        margin: 4px 0;
-      }
-
-      .btn-bar .btn {
-        flex: 1;
-        padding: 6px 0;
-        font-size: 13px;
-        margin: 0;
-      }
-
-      .cards-row {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr); /* 横7枚 */
-        gap: 4px;
-      }
-
-      .cards-row .card {
-        width: 100%;
-        height: 40px;      /* 小さめ */
-        padding: 0;
-        font-size: 10px;
-      }
-
-      .rule-btn {
-        font-size: 13px;
-        padding: 4px 8px;
-      }
-
-      .log {
-        max-height: 140px;
-      }
-    }
-  </style>
 </head>
 <body>
 
