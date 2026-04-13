@@ -784,82 +784,60 @@
   /* ============================
      先攻の手生成（点数縛り）
   ============================ */
-  function generateOpponentHand() {
-    const targetPoints = roundTargets[round - 1];
-    const remaining = deck.filter(c => !c.used);
+function generateOpponentHand() {
+  const targetPoints = roundTargets[round - 1];
+  const remaining = deck.filter(c => !c.used);
 
-    const rankMap = {};
-    for (const r of ranks) rankMap[r] = [];
-    remaining.forEach(c => rankMap[c.rank].push(c));
-
-    let bestHand = null;
-    let bestEval = null;
-
-    function* rankMultisetCombos(k, combo = []) {
-      if (combo.length === k) {
-        yield combo;
-        return;
-      }
-      for (const r of ranks) {
-        yield* rankMultisetCombos(k, combo.concat(r));
-      }
-    }
-
-    for (const rankSet of rankMultisetCombos(5)) {
-      const sum = rankSet.reduce((a, r) => a + rankPoint[r], 0);
-      if (sum !== targetPoints) continue;
-
-      const need = {};
-      for (const r of rankSet) need[r] = (need[r] || 0) + 1;
-
-      let ok = true;
-      for (const r in need) {
-        if (rankMap[r].length < need[r]) {
-          ok = false;
-          break;
-        }
-      }
-      if (!ok) continue;
-
-      let hand = [];
-      const usedTemp = {};
-      for (const r of rankSet) {
-        usedTemp[r] = usedTemp[r] || 0;
-        hand.push(rankMap[r][usedTemp[r]]);
-        usedTemp[r]++;
-      }
-
-      const evalHand = evaluateHand(hand);
-
-      if (!bestHand ||
-          evalHand.score > bestEval.score ||
-          (evalHand.score === bestEval.score &&
-           compareHands(evalHand, bestEval) > 0)) {
-        bestHand = hand;
-        bestEval = evalHand;
-      }
-    }
-
-    if (!bestHand) {
-      opponentHand = [];
-      opponentHandEl.innerHTML = "<div style='color:#ff7675'>不成立</div>";
-      opponentInfoEl.textContent = `合計点 ${targetPoints}：役が作れません`;
-      statusEl.textContent = "先攻は役不成立。あなたが役を作れば勝ち。";
-      updateNextRoundInfo();
+  // 残りカードから 5枚組の全組み合わせを生成
+  function* combinations(arr, k, start = 0, combo = []) {
+    if (combo.length === k) {
+      yield combo;
       return;
     }
-
-    opponentHand = bestHand;
-    useCards(opponentHand);
-    renderOpponentHand();
-
-    statusEl.textContent = "先攻の手が決まりました。カードを5枚選んでください。";
-
-    document.getElementById("currentInfo").textContent =
-      `合計点 ${targetPoints}：${bestEval.rankName}`;
-
-    updateNextRoundInfo();
+    for (let i = start; i < arr.length; i++) {
+      yield* combinations(arr, k, i + 1, combo.concat(arr[i]));
+    }
   }
+
+  let bestHand = null;
+  let bestEval = null;
+
+  for (const hand of combinations(remaining, 5)) {
+    const sum = hand.reduce((a, c) => a + rankPoint[c.rank], 0);
+    if (sum !== targetPoints) continue;
+
+    const evalHand = evaluateHand(hand);
+
+    if (!bestHand ||
+        evalHand.score > bestEval.score ||
+        (evalHand.score === bestEval.score &&
+         compareHands(evalHand, bestEval) > 0)) {
+      bestHand = hand;
+      bestEval = evalHand;
+    }
+  }
+
+  if (!bestHand) {
+    opponentHand = [];
+    opponentHandEl.innerHTML = "<div style='color:#ff7675'>不成立</div>";
+    opponentInfoEl.textContent = `合計点 ${targetPoints}：役が作れません`;
+    statusEl.textContent = "先攻は役不成立。あなたが役を作れば勝ち。";
+    updateNextRoundInfo();
+    return;
+  }
+
+  opponentHand = bestHand;
+  useCards(opponentHand);
+  renderOpponentHand();
+
+  statusEl.textContent = "先攻の手が決まりました。カードを5枚選んでください。";
+
+  document.getElementById("currentInfo").textContent =
+    `合計点 ${targetPoints}：${bestEval.rankName}`;
+
+  updateNextRoundInfo();
+}
+
 
   /* ============================
      NEXT → 情報更新
