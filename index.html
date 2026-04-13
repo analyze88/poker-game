@@ -104,7 +104,7 @@
   align-items: center;
   gap: 4px;
   padding: 0;
-  margin: 0 0 4px 0;
+  margin: 0 0 6px 0;
 }
 
 /* 透明ダミーカード（PC・スマホ共通） */
@@ -236,6 +236,7 @@
     position: relative;
     min-height: 44px;
     height: 44px;
+    margin-bottom: 6px; /* ← 4px → 6px */
   }
 
   /* 透明のダミーカードを1枚置いて高さを確保 */
@@ -1041,6 +1042,15 @@ retryBtn.onclick = () => {
 </div>
 
 <script>
+
+// ▼ ページ読み込み時にルールモーダルを自動表示
+window.addEventListener("load", () => {
+  const modal = document.getElementById("ruleModal");
+  if (modal) {
+    modal.classList.remove("hidden");
+  }
+});
+
 window.addEventListener("DOMContentLoaded", () => {
   const ruleBtn   = document.getElementById("ruleBtn");
   const ruleModal = document.getElementById("ruleModal");
@@ -1051,6 +1061,7 @@ window.addEventListener("DOMContentLoaded", () => {
   closeRule.onclick = () => ruleModal.classList.add("hidden");
 
   ruleText.innerHTML = `
+
 <h3>ゲーム概要</h3>
 <p>先攻（CPU）が各ラウンドで決められた合計点で作った5枚の手に、後攻（あなた）が勝てばクリア。</p>
 
