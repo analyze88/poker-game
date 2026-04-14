@@ -1060,7 +1060,17 @@ function nextRound() {
 
 
     <!-- ▼ 並び順切り替えボタン -->
-<div style="display:flex; gap:8px; margin-bottom:8px;">
+<div style="
+  display:flex;
+  gap:8px;
+  margin-bottom:8px;
+  position: sticky;
+  top: 0;
+  background: white;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  z-index: 10;
+">
 
   <button id="closeLog" class="btn" style="flex:1;">
     閉じる
