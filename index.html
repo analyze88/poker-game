@@ -140,6 +140,7 @@
   .log {
     white-space: pre-line;
     background: #111;
+    color: #f5f5f5;
     padding: 8px;
     border-radius: 4px;
     max-height: 220px;
@@ -300,10 +301,11 @@
 </head>
 <body>
 
-  <h1>
-    <span>後出しポーカー</span>
-    <button id="ruleBtn" class="rule-btn">ルール</button>
-  </h1>
+<h1>
+  <span>後出しポーカー</span>
+  <button id="logBtn" class="rule-btn">ログ</button>
+  <button id="ruleBtn" class="rule-btn">ルール</button>
+</h1>
 
   <!-- 先攻の手 -->
   <div class="area">
@@ -345,12 +347,6 @@
     <div id="deckArea"></div>
   </div>
 
-  <!-- ログ（折りたたみ） -->
-  <div class="area">
-    <h2 style="cursor:pointer;" onclick="toggleLog()">ログ ▼</h2>
-    <div id="log" class="log"></div>
-  </div>
-
 <script>
 (() => {
 
@@ -385,17 +381,19 @@
   const playerInfoEl = document.getElementById("playerInfo");
   const roundEl = document.getElementById("round");
   const statusEl = document.getElementById("status");
-  const logEl = document.getElementById("log");
   const judgeBtn = document.getElementById("judgeBtn");
   const clearBtn = document.getElementById("clearBtn");
   const retryBtn = document.getElementById("retryBtn");
+  const logBtn = document.getElementById("logBtn");
 
   /* ============================
      ログ
   ============================ */
-  function log(msg) {
-    logEl.textContent = msg + "\n" + logEl.textContent;
-  }
+function log(msg) {
+  const el = document.getElementById("log");
+  if (!el) return; // まだモーダルが DOM にない時は何もしない
+  el.textContent = msg + "\n" + el.textContent;
+}
 
   /* ============================
      デッキ生成
@@ -765,6 +763,7 @@
     }
     return 0;
   }
+  
 
   /* ============================
      先攻の手を使用済みにする
@@ -817,14 +816,29 @@ function generateOpponentHand() {
     }
   }
 
-  if (!bestHand) {
+if (!bestHand) {
+
+    roundEl.textContent = round;
+    document.getElementById("currentInfo").className = "";
+    document.getElementById("nextInfo").className = "";
+
     opponentHand = [];
     opponentHandEl.innerHTML = "<div style='color:#ff7675'>不成立</div>";
-    opponentInfoEl.textContent = `合計点 ${targetPoints}：役が作れません`;
+    opponentInfoEl.textContent = "";
+
+    document.getElementById("currentInfo").textContent =
+      `合計点 ${targetPoints}：役不成立`;
+
     statusEl.textContent = "先攻は役不成立。あなたが役を作れば勝ち。";
+
     updateNextRoundInfo();
+
+    // ★ R5であなたの手が消える問題の修正
+    renderPlayerHand();
+
     return;
-  }
+}
+
 
   opponentHand = bestHand;
   useCards(opponentHand);
@@ -838,6 +852,12 @@ function generateOpponentHand() {
   updateNextRoundInfo();
 }
 
+
+function handToString(cards) {
+  return cards
+    .map(c => `${c.suit}${c.rank === 1 ? "A" : c.rank === 11 ? "J" : c.rank === 12 ? "Q" : c.rank === 13 ? "K" : c.rank}`)
+    .join("");
+}
 
   /* ============================
      NEXT → 情報更新
@@ -893,7 +913,11 @@ function generateOpponentHand() {
     const res = compareHands(evalPl, evalOpp);
 
     if (res > 0) {
-      log(`ラウンド${round}: 勝ち！ あなた=${evalPl.rankName} / 先攻=${evalOpp.rankName}`);
+      log(
+  `ラウンド${round}: 勝ち！\n` +
+  `先攻 = ${evalOpp.rankName} ${handToString(opponentHand)}\n` +
+  `あなた = ${evalPl.rankName} ${handToString(playerSelection)}`
+);
       statusEl.textContent = "勝ち。次のラウンドへ。";
       useCards(opponentHand);
       useCards(playerSelection);
@@ -901,7 +925,11 @@ function generateOpponentHand() {
       setTimeout(nextRound, 600);
 
     } else if (res < 0) {
-      log(`ラウンド${round}: 負け… あなた=${evalPl.rankName} / 先攻=${evalOpp.rankName}`);
+      log(
+  `ラウンド${round}: 負け…\n` +
+  `先攻 = ${evalOpp.rankName} ${handToString(opponentHand)}\n` +
+  `あなた = ${evalPl.rankName} ${handToString(playerSelection)}`
+);
       statusEl.textContent = "負け。ゲームオーバー。";
       gameOver = true;
       judgeBtn.disabled = true;
@@ -909,7 +937,11 @@ function generateOpponentHand() {
       retryBtn.style.display = "inline-block";
 
     } else {
-      log(`ラウンド${round}: 引き分け（同格）。今回は負け扱い。`);
+      log(
+  `ラウンド${round}: 引き分け（同格）\n` +
+  `先攻 = ${evalOpp.rankName} ${handToString(opponentHand)}\n` +
+  `あなた = ${evalPl.rankName} ${handToString(playerSelection)}`
+);
       statusEl.textContent = "先攻と同じ役。後攻の負け。";
       gameOver = true;
       judgeBtn.disabled = true;
@@ -927,9 +959,14 @@ retryBtn.onclick = () => {
   playerSelection = [];
   opponentHand = [];
 
+  // ★ ラウンド表示を 1 に戻す
+  roundEl.textContent = 1;
+
   // ラベル色リセット
   document.getElementById("currentInfo").className = "";
   document.getElementById("nextInfo").className = "";
+  document.getElementById("currentInfo").textContent = "";
+  document.getElementById("nextInfo").textContent = "";
 
   // 初期化処理
   createDeck();
@@ -947,36 +984,35 @@ retryBtn.onclick = () => {
 
   statusEl.textContent = "ゲーム再開。カードを5枚選んでください。";
 
-  // 念のため表示
-  retryBtn.style.display = "inline-block";
 };
-
-
 
 
   /* ============================
      次ラウンド
   ============================ */
-  function nextRound() {
-    if (round >= 5) {
-      statusEl.textContent = "5ラウンド生存。クリア！";
-      log("5ラウンド無敗でクリア。クリア達成。");
-      gameOver = true;
-      judgeBtn.disabled = true;
-      clearBtn.disabled = true;
-      retryBtn.style.display = "inline-block";
-      return;
-    }
+function nextRound() {
 
-    round++;
-    roundEl.textContent = round;
-    playerSelection = [];
-    renderPlayerHand();
-    generateOpponentHand();
-    renderDeck();
-    updateNextRoundInfo();
+  // ★ 先攻の手を使用済みにする（必須）
+  useCards(opponentHand);
+
+  if (round >= 5) {
+    statusEl.textContent = "5ラウンド生存。クリア！";
+    log("5ラウンド無敗でクリア。クリア達成。");
+    gameOver = true;
+    judgeBtn.disabled = true;
+    clearBtn.disabled = true;
+    retryBtn.style.display = "inline-block";
+    return;
   }
 
+  round++;
+  roundEl.textContent = round;
+  playerSelection = [];
+  renderPlayerHand();
+  generateOpponentHand();
+  renderDeck();
+  updateNextRoundInfo();
+}
   /* ============================
      クリアボタン
   ============================ */
@@ -1000,7 +1036,6 @@ retryBtn.onclick = () => {
   ============================ */
   createDeck();
   generateOpponentHand();
-  useCards(opponentHand);
   renderDeck();
   renderPlayerHand();
   document.getElementById("opponentAllTotals").textContent =
@@ -1019,17 +1054,26 @@ retryBtn.onclick = () => {
   </div>
 </div>
 
+<div id="logModal" class="rule-modal hidden">
+  <div class="rule-content">
+    <h2>ログ</h2>
+    <div id="log" class="log" style="white-space:pre-line;"></div>
+    <button id="closeLog" class="close-btn">閉じる</button>
+  </div>
+</div>
+
 <script>
-
-// ▼ ページ読み込み時にルールモーダルを自動表示
-window.addEventListener("load", () => {
-  const modal = document.getElementById("ruleModal");
-  if (modal) {
-    modal.classList.remove("hidden");
-  }
-});
-
 window.addEventListener("DOMContentLoaded", () => {
+
+  /* ▼ ログモーダル開閉 */
+  const logBtn   = document.getElementById("logBtn");
+  const logModal = document.getElementById("logModal");
+  const closeLog = document.getElementById("closeLog");
+
+  logBtn.onclick   = () => logModal.classList.remove("hidden");
+  closeLog.onclick = () => logModal.classList.add("hidden");
+
+  /* ▼ ルールモーダル開閉 */
   const ruleBtn   = document.getElementById("ruleBtn");
   const ruleModal = document.getElementById("ruleModal");
   const closeRule = document.getElementById("closeRule");
@@ -1038,8 +1082,8 @@ window.addEventListener("DOMContentLoaded", () => {
   ruleBtn.onclick = () => ruleModal.classList.remove("hidden");
   closeRule.onclick = () => ruleModal.classList.add("hidden");
 
+  /* ▼ ルール文 */
   ruleText.innerHTML = `
-
 <h3>ゲーム概要</h3>
 <p>先攻（CPU）が各ラウンドで決められた合計点で作った5枚の手に、後攻（あなた）が勝てばクリア。</p>
 
@@ -1062,6 +1106,7 @@ window.addEventListener("DOMContentLoaded", () => {
 `;
 });
 </script>
+
 
 </body>
 </html>
