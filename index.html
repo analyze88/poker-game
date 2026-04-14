@@ -1057,13 +1057,46 @@ function nextRound() {
 <div id="logModal" class="rule-modal hidden">
   <div class="rule-content">
     <h2>ログ</h2>
+
+
+    <!-- ▼ 並び順切り替えボタン -->
+<div style="display:flex; gap:8px; margin-bottom:8px;">
+
+  <button id="closeLog" class="btn" style="flex:1;">
+    閉じる
+  </button>
+    <button id="toggleOrderBtn" class="btn" style="flex:1;">
+    昇順にする
+  </button>
+</div>
+
     <div id="log" class="log" style="white-space:pre-line;"></div>
-    <button id="closeLog" class="close-btn">閉じる</button>
+
   </div>
 </div>
 
 <script>
 window.addEventListener("DOMContentLoaded", () => {
+
+/* ▼ ログ並び順切り替え */
+let logAscending = false;
+
+document.getElementById("toggleOrderBtn").onclick = () => {
+  const logEl = document.getElementById("log");
+  const lines = logEl.textContent.split("\n").filter(x => x.trim() !== "");
+
+  logAscending = !logAscending;
+
+  if (logAscending) {
+    lines.reverse();
+    document.getElementById("toggleOrderBtn").textContent = "降順にする";
+  } else {
+    lines.reverse();
+    document.getElementById("toggleOrderBtn").textContent = "昇順にする";
+  }
+
+  logEl.textContent = lines.join("\n");
+};
 
   /* ▼ ログモーダル開閉 */
   const logBtn   = document.getElementById("logBtn");
